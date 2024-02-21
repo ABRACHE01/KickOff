@@ -1,4 +1,5 @@
-import { Text, View } from "react-native"
+import { useNavigation } from "@react-navigation/native";
+import { Text, TouchableOpacity, View } from "react-native"
 
 const PlayerDetails = () => {
   return (
