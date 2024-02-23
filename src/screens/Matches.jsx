@@ -1,18 +1,30 @@
-import { useNavigation } from "@react-navigation/native";
-import { Text, TouchableOpacity, View } from "react-native"
-
-
+import React, { useEffect, useState } from "react";
+import { ScrollView, Text } from "react-native";
+import FootballMatchCard from "../components/FootballMatchCard";
+import { useMatchesQuery } from "../redux/features/matches";
 
 const Matches = () => {
-  const navigation = useNavigation();
+
+  const { data: matchesApi, isSuccess } = useMatchesQuery({});
+  const [matches, setMatches] = useState([]);
+
+  useEffect(() => {
+    if (matchesApi && isSuccess) {
+      setMatches(matchesApi.data);
+    }
+  }, [matchesApi, isSuccess]);
+
   return (
-    <View className="flex-1 items-center justify-center bg-white">
-      <Text> this is screen of matches </Text>
-      <TouchableOpacity onPress={() => navigation.navigate("MatcheDetails")}><Text>Go to the matches details</Text></TouchableOpacity>
-    </View>
-    )
-}
+    <ScrollView>
+      { matchesApi && isSuccess ? (
+        matches.map((match) => (
+          <FootballMatchCard key={match.id} match={match} />
+        ))
+      ) : (
+        <Text>Loading ...</Text>
+      )}
+    </ScrollView>
+  );
+};
 
-
-
-export default Matches
+export default Matches;

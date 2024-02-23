@@ -1,14 +1,30 @@
-import { useNavigation } from "@react-navigation/native";
-import { Text , TouchableOpacity, View } from "react-native"
+import { ScrollView, Text , View } from "react-native"
+import { useEffect, useState } from "react";
+import { usePlayersQuery } from "../redux/features/players";
+import FootballPlayerCard from "../components/FootballPlayerCard";
 
 
 const Players = () => {
-  const navigation = useNavigation();
+
+  const {data:playersApi , isSuccess } = usePlayersQuery({});
+  const [players , setPlayers ] = useState([]);
+  
+  useEffect(()=>{
+    if(playersApi && isSuccess){
+      setPlayers(playersApi.data)
+    }
+  },[playersApi])
+
   return (
-    <View  className="flex-1 items-center justify-center bg-white">
-      <Text> this is screen of players </Text>
-      <TouchableOpacity onPress={() => navigation.navigate("PlayerDetails")}><Text>Go to the Players details</Text></TouchableOpacity>
-    </View>  
+    <ScrollView>
+      { playersApi && isSuccess ? (
+        players.map((player) => (
+          <FootballPlayerCard key={player.id} player={player} />
+        ))
+      ) : (
+        <Text>Loading players...</Text>
+      )}
+    </ScrollView>  
     )
 }
 
