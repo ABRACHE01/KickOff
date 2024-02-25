@@ -1,54 +1,34 @@
 import React from "react";
 import { Card, Text } from "@ui-kitten/components";
-import { Image, StyleSheet, View } from "react-native";
+import { Image , View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
 const FootballMatchCard = ({ match }) => {
   const navigation = useNavigation();
   const goToMatchDetails = (id) => {
     navigation.navigate("MatcheDetails", { id });
   };
+  
   return (
     <View className="p-3">
-      <Card onPress={() => goToMatchDetails(match.id)}>
-      <View style={styles.teamContainer}>
-        <Image style={styles.teamLogo} source={{ uri: match.participants[0].image_path }} />
-        <Text style={styles.teamName}>{match.participants[0].name}</Text>
+    <Card onPress={() => goToMatchDetails(match.id)}>
+      <View className="flex flex-row justify-center">
+        <View className="items-center">
+          <Image className="w-12 h-12 rounded-full" source={{ uri: match.participants[0].image_path }} />
+          <Text className="mt-2 text-lg font-bold">{match.participants[0].name}</Text>
+        </View>
+        <View className="items-center mx-4">
+          <Text className="text-2xl font-bold">vs</Text>
+        </View>
+        <View className="items-center">
+          <Image className="w-12 h-12 rounded-full" source={{ uri: match.participants[1].image_path }} />
+          <Text className="mt-2 text-lg font-bold">{match.participants[1].name}</Text>
+        </View>
       </View>
-      <View style={styles.vsContainer}>
-        <Text style={styles.vsText}>vs</Text>
-      </View>
-      <View style={styles.teamContainer}>
-        <Image style={styles.teamLogo} source={{ uri: match.participants[1].image_path }} />
-        <Text style={styles.teamName}>{match.participants[1].name}</Text>
-      </View>
-      </Card>
-    </View>
+    </Card>
+  </View>
   );
 };
 
-const styles = StyleSheet.create({
 
-  teamContainer: {
-    alignItems: 'center',
-  },
-  teamLogo: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-  },
-  teamName: {
-    marginTop: 5,
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  vsContainer: {
-    alignItems: 'center',
-  },
-  vsText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-});
 
 export default FootballMatchCard;

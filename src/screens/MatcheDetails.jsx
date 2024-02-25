@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, Image, StyleSheet } from "react-native";
+import { Text, View, Image, StyleSheet, ScrollView, ActivityIndicator } from "react-native";
 import { useRoute } from "@react-navigation/native";
-import { useMatchDetailsQuery } from "../redux/features/matches";
+import { useMatchDetailsQuery } from "../redux/features/match/matchesApiSlice";
 
 const MatcheDetails = () => {
   const route = useRoute();
   const { id } = route.params;
-  const { data: matchDetails, isSuccess } = useMatchDetailsQuery(id);
+  const { data: matchDetails, isSuccess, isLoading } = useMatchDetailsQuery(id);
   const [details, setDetails] = useState(null);
   
   useEffect(() => {
@@ -16,10 +16,11 @@ const MatcheDetails = () => {
   }, [matchDetails, isSuccess]);
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
+      {isLoading && <ActivityIndicator size="large" color="#0000ff" />}
       {details && (
         <>
-          <Text style={styles.title} className="text-center">{details.name}</Text>
+          <Text style={styles.title}>{details.name}</Text>
           <View style={styles.participantsContainer}>
             {details.participants.map((participant, index) => (
               <View key={index} style={styles.participantItem}>
@@ -34,41 +35,51 @@ const MatcheDetails = () => {
           <Text style={styles.text}>Result: {details.result_info}</Text>
         </>
       )}
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 20,
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 20,
     backgroundColor: '#fff',
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: 20,
+    textAlign: 'center',
+    textDecorationLine: 'underline',
   },
   text: {
-    fontSize: 16,
-    marginBottom: 5,
+    fontSize: 18,
+    marginBottom: 20,
+    textAlign: 'center',
+    fontStyle: 'italic',
   },
   participantsContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 10,
+    justifyContent: 'space-around',
+    marginTop: 20,
+    marginBottom: 40,
   },
   participantItem: {
     alignItems: 'center',
   },
   participantImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginBottom: 10,
   },
   participantName: {
-    marginTop: 5,
-    fontSize: 14,
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    textTransform: 'capitalize',
   },
 });
 

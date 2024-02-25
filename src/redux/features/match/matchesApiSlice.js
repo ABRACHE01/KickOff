@@ -1,6 +1,6 @@
-import { apiSlice } from '../customFetchBase';
+import { apiSlice } from '../../customFetchBase';
 
-export const matcheSlice = apiSlice.injectEndpoints({
+export const matcheApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     matches: builder.query({
       query: () => ({
@@ -20,4 +20,4 @@ export const matcheSlice = apiSlice.injectEndpoints({
 export const { 
   useMatchesQuery,
   useMatchDetailsQuery,
-} = matcheSlice;
+} = matcheApiSlice;

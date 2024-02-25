@@ -16,12 +16,12 @@ const MatchesStack = () => {
     <Stack.Navigator>
       <Stack.Screen
         name="Matches"
-        options={{ title: "Matches" }}
+        options={{ title: "Matches" , headerTitleAlign: "center" }}
         component={Matches}
       />
       <Stack.Screen
         name="MatcheDetails"
-        options={{ title: "Matche details" }}
+        options={{ title: "Matche details" , headerTitleAlign: "center" }}
         component={MatcheDetails}
       />
     </Stack.Navigator>
@@ -33,12 +33,12 @@ const PlayersStack = () => {
     <Stack.Navigator>
       <Stack.Screen
         name="Players"
-        options={{ title: "Player" }}
+        options={{ title: "Player"  , headerTitleAlign: "center"}}
         component={Players}
       />
       <Stack.Screen
         name="PlayerDetails"
-        options={{ title: "Player Details" }}
+        options={{ title: "Player Details" , headerTitleAlign: "center",}}
         component={PlayerDetails}
       />
     </Stack.Navigator>

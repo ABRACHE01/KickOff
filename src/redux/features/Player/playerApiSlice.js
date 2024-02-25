@@ -1,7 +1,7 @@
 
-import {apiSlice} from '../customFetchBase'
+import {apiSlice} from '../../customFetchBase'
 
-export const playerSlice = apiSlice.injectEndpoints({
+export const playerApiSlice = apiSlice.injectEndpoints({
 
     endpoints: (builder) => ({
       players: builder.query({
@@ -17,11 +17,18 @@ export const playerSlice = apiSlice.injectEndpoints({
           method: "GET"
         }),
       }),
-      
+
+      searchPlayers: builder.query({
+        query: (searchQuery) => ({
+          url: `/players/search/${searchQuery}`,
+          method: "GET"
+        }),
+      }),
     }),
   });
   
   export const { 
     usePlayersQuery,
+    useSearchPlayersQuery,
     usePlayerDetailsQuery
-   } = playerSlice;
+   } = playerApiSlice;

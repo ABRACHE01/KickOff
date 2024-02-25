@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, Text } from "react-native";
+import { ScrollView, View, StyleSheet } from "react-native";
 import FootballMatchCard from "../components/FootballMatchCard";
-import { useMatchesQuery } from "../redux/features/matches";
+import { useMatchesQuery } from "../redux/features/match/matchesApiSlice";
+import Loader from "../components/Spinner";
 
 const Matches = () => {
-
-  const { data: matchesApi, isSuccess } = useMatchesQuery({});
+  const { data: matchesApi, isSuccess , isLoading } = useMatchesQuery({});
   const [matches, setMatches] = useState([]);
 
   useEffect(() => {
@@ -15,16 +15,25 @@ const Matches = () => {
   }, [matchesApi, isSuccess]);
 
   return (
-    <ScrollView>
-      { matchesApi && isSuccess ? (
-        matches.map((match) => (
-          <FootballMatchCard key={match.id} match={match} />
-        ))
+    <View style={styles.container}>
+      {isLoading ? (
+        <Loader />
       ) : (
-        <Text>Loading ...</Text>
+        <ScrollView>
+          {matches.map((match) => (
+            <FootballMatchCard key={match.id} match={match} />
+          ))}
+        </ScrollView>
       )}
-    </ScrollView>
+    </View>
   );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
+
 export default Matches;
+
