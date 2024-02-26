@@ -7,6 +7,7 @@ import MatcheDetails from "../screens/MatcheDetails";
 import Players from "../screens/Players";
 import PlayerDetails from "../screens/PlayerDetails";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FavoriteMatches from "../screens/FavoriteMatches";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -45,6 +46,19 @@ const PlayersStack = () => {
   );
 };
 
+
+const FavoritStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="FavoriteMatches"
+        options={{ title: "Favorite Matches"  , headerTitleAlign: "center"}}
+        component={FavoriteMatches}
+      />
+    </Stack.Navigator>
+  );
+};
+
 const Routes = () => {
   return (
     <NavigationContainer>
@@ -67,6 +81,17 @@ const Routes = () => {
           tabBarLabel: 'Players',
           tabBarIcon: ({ color }) => (
           <MaterialCommunityIcons name="account-group" color={color} size={26} />
+          ),
+        }}
+         />
+
+      <Tab.Screen 
+        name="favoritTab" 
+        component={FavoritStack}
+        options={{
+          tabBarLabel: 'Favorit',
+          tabBarIcon: ({ color }) => (
+          <MaterialCommunityIcons name="heart" color={color} size={26} />
           ),
         }}
          />

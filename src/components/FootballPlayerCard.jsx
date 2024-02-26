@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Card, Text } from "@ui-kitten/components";
 import { Image, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";

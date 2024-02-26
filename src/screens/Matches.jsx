@@ -21,7 +21,7 @@ const Matches = () => {
       ) : (
         <ScrollView>
           {matches.map((match) => (
-            <FootballMatchCard key={match.id} match={match} />
+            <FootballMatchCard key={match.id} isFav={false} match={match} />
           ))}
         </ScrollView>
       )}
