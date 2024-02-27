@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -8,6 +8,7 @@ import Players from "../screens/Players";
 import PlayerDetails from "../screens/PlayerDetails";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FavoriteMatches from "../screens/FavoriteMatches";
+import Landing from "../screens/Landing";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -60,42 +61,50 @@ const FavoritStack = () => {
 };
 
 const Routes = () => {
+  const [showLanding, setShowLanding] = useState(true);
+
+  const handleNavigateFromLanding = () => {
+    setShowLanding(false);
+  };
+
   return (
     <NavigationContainer>
-      <Tab.Navigator screenOptions={{ headerShown: false }}>
-        <Tab.Screen 
-        name="MatchesTab" 
-        component={MatchesStack}
-        options={{
-          tabBarLabel: 'Matches',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="soccer" color={color} size={26} />
-
-          ),
-        }}
-         />
-        <Tab.Screen 
-        name="PlayersTab" 
-        component={PlayersStack}
-        options={{
-          tabBarLabel: 'Players',
-          tabBarIcon: ({ color }) => (
-          <MaterialCommunityIcons name="account-group" color={color} size={26} />
-          ),
-        }}
-         />
-
-      <Tab.Screen 
-        name="favoritTab" 
-        component={FavoritStack}
-        options={{
-          tabBarLabel: 'Favorit',
-          tabBarIcon: ({ color }) => (
-          <MaterialCommunityIcons name="heart" color={color} size={26} />
-          ),
-        }}
-         />
-      </Tab.Navigator>
+      {showLanding ? (
+        <Landing onNavigate={handleNavigateFromLanding} />
+      ) : (
+        <Tab.Navigator screenOptions={{ headerShown: false }}>
+          <Tab.Screen 
+            name="MatchesTab" 
+            component={MatchesStack}
+            options={{
+              tabBarLabel: 'Matches',
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="soccer" color={color} size={26} />
+              ),
+            }}
+          />
+          <Tab.Screen 
+            name="PlayersTab" 
+            component={PlayersStack}
+            options={{
+              tabBarLabel: 'Players',
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="account-group" color={color} size={26} />
+              ),
+            }}
+          />
+          <Tab.Screen 
+            name="favoritTab" 
+            component={FavoritStack}
+            options={{
+              tabBarLabel: 'Favorites',
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="heart" color={color} size={26} />
+              ),
+            }}
+          />
+        </Tab.Navigator>
+      )}
     </NavigationContainer>
   );
 };

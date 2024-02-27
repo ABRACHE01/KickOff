@@ -11,11 +11,6 @@ const PlayerSearch = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
     searchQuery ? dispatch(setPlayerQuery(searchQuery)) : "" ;
-
-
-
-
-  
   return (
     <View style={styles.container}>
       <TouchableOpacity >
